@@ -9,20 +9,55 @@
 @endsection
 
 @section('content')
+    @if(!empty(Request::segment(1)))
+        <section>
+            A filter has been set!
+            <a href="{{ route('index') }}">Show all quote</a>
+        </section>
+    @endif
+
+    @if(count($errors) > 0)
+        <section class="info-box fail">
+            <ul>
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </section>
+    @endif
+    @if(Session::has('success'))
+        <section class="info-box success">
+             {{ Session::get('success') }}
+        </section>
+    @endif
     <section class="quotes">
         <h1>Latest quote</h1>
+        @foreach ($quotes as $quote)
         <article class="quote">
             <div class="delete">
-                <a href="#">x</a>
+                <a href="{{ route('delete', ['quote_id' => $quote->id]) }}">x</a>
             </div>
-            Quote text
+            {{ $quote->quote }} 
             <div class="info">
                 Created by
-                <a href="">Maximilian</a>
-                 on ...
+                <a href="{{ route('index', ['author' => $quote->author->name]) }}">{{ $quote->author->name }}</a>
+                on {{ $quote->created_at }} 
             </div>
         </article>
-        Pagination
+        @endforeach
+        <div class="paginate">
+            @if($quotes->currentPage() !== 1)
+                <a href="{{ $quotes->previousPageUrl() }}">
+                    <span class="fa fa-caret-left"></span>
+                </a>
+            @endif
+            @if($quotes->currentPage() !== $quotes->lastPage() && $quotes->hasPages())
+                <a href="{{ $quotes->nextPageUrl() }}">
+                    <span class="fa fa-caret-right"></span>
+                </a>
+            @endif
+        </div>
+        
     </section>
 
     <section class="edit-quote">
