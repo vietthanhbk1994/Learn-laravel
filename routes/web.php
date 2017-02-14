@@ -12,7 +12,7 @@
 */
 Route::group(['middleware' => ['web']], function() {
     
-    Route::get('/', [
+    Route::get('/home', [
         'uses'  => 'NiceActionController@getHome',
         'as'    => 'home'
     ]);
@@ -28,4 +28,13 @@ Route::group(['middleware' => ['web']], function() {
             'as'    => 'add_action'
         ]);
     });
+
+    Route::get('/', [
+        'uses'  => 'QuoteController@getIndex',
+        'as'    =>  'index'
+    ]);
+    Route::post('/new', [
+        'uses'  => 'QuoteController@postQuote',
+        'as'    =>  'create'
+    ]);
 });

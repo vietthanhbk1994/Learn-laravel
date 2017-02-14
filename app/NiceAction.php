@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class NiceAction extends Model
 {
-	public $table = "nice_actions";
+    public $table = "nice_actions";
 
     public function logged_actions()
     {
