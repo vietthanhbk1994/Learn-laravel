@@ -45,6 +45,7 @@
             </div>
         </article>
         @endforeach
+        @if(empty($quotes))
         <div class="paginate">
             @if($quotes->currentPage() !== 1)
                 <a href="{{ $quotes->previousPageUrl() }}">
@@ -57,7 +58,7 @@
                 </a>
             @endif
         </div>
-        
+        @endif
     </section>
 
     <section class="edit-quote">
@@ -67,6 +68,12 @@
                 <label for="author">Your Name</label>
                 <input type="text" name="author" id="author" placeholder="Your name"/>
             </div>
+            
+            <div class="input-group">
+                <label for="email">Your Email</label>
+                <input type="text" name="email" id="email" placeholder="Your email"/>
+            </div>
+            
             <div class="input-group">
                 <label for="quote">Your quote</label>
                 <input type="text" name="quote" id="quote" placeholder="Quote"/>
